@@ -40,7 +40,7 @@ function App() {
       </Route>
 
       <Route path="/formswap" element={<FormSwap/>} />
-      <Route path="/formswap" element={<FormPosting/>} />
+      <Route path="/formskills" element={<FormPosting/>} />
       <Route path="/detailskills" element={<DetailPosting/>} />
       <Route path="/detailswap" element={<DetailSwap/>} />
 

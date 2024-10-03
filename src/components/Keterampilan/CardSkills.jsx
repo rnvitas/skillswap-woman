@@ -2,7 +2,8 @@ import styles from "../../assets/Skills.module.css";
 
 
 function CardSkills ({skills}){
-
+ 
+    
     return(
         <>
          <div className={`${styles["skills-card"]}`}>
@@ -20,15 +21,15 @@ function CardSkills ({skills}){
                   <div
                     className={`px-2 py-3 bg-[#F8EBED] flex justify-center rounded-[10px] items-center`}>
                     <h6 className="font-bold text-[#BA324F]">
-                      {skills.category}
+                      {skills.skillCategory}
                     </h6>
                   </div>
                 </div>
 
                 <div className={`mt-3 flex gap-3 flex-col `}>
-                  <h4 className="font-bold text-[1.2rem]">{skills.skilltitle}</h4>
+                  <h4 className="font-bold text-[1.2rem]">{skills.skillName}</h4>
                   <p className="text-[#8C8C8C]">
-                {skills.desc}
+                {skills.skillDesc}
                   </p>
                 </div>
               </div>

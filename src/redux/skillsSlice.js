@@ -1,25 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Navigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import Swal from "sweetalert2";
 
 // Fungsi untuk memuat state dari localStorage
 const loadState = () => {
   try {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const isLoggedin = JSON.parse(localStorage.getItem("isLoggedin")) || false;
-    const loggedInUser =
-      JSON.parse(localStorage.getItem("loggedInUser")) || null;
+    const postskills = JSON.parse(localStorage.getItem("post-skills")) || [];
+
     return {
-      users,
-      isLoggedin,
-      loggedInUser,
+      postskills,
     };
   } catch (e) {
     console.warn("Gagal memuat state dari localStorage:", e);
     return {
-      users: [],
-      isLoggedin: false,
-      loggedInUser: null,
+      postskills: [],
     };
   }
 };
@@ -28,142 +22,108 @@ const loadState = () => {
 const initialState = loadState();
 
 const skillsSlice = createSlice({
-  name: "users",
+  name: "skill",
   initialState,
   reducers: {
-    addUser: (state, action) => {
-      state.users.push(action.payload);
+    addSkills: (state, action) => {
+      state.postskills.push(action.payload);
       // Update localStorage
       try {
-        const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-        existingUsers.push(action.payload);
-        localStorage.setItem("users", JSON.stringify(existingUsers));
+        const existingSkills =
+          JSON.parse(localStorage.getItem("post-skills")) || [];
+        existingSkills.push(action.payload);
+        localStorage.setItem("post-skills", JSON.stringify(existingSkills));
       } catch (e) {
-        console.log("Error saving user to localStorage", e);
-      }
-    },
-    loginUser: (state, action) => {
-      const user = state.users.find(
-        (user) =>
-          user.email === action.payload.email &&
-          user.password === action.payload.password
-      );
-
-      if (user) {
-        state.isLoggedin = true;
-        state.loggedInUser = user;
-        // Update localStorage
-        try {
-          localStorage.setItem("isLoggedin", true);
-          localStorage.setItem("loggedInUser", JSON.stringify(user));
-        } catch (e) {
-          console.log("Error saving login state to localStorage", e);
-        }
-      } else {
-        state.isLoggedin = false;
-        state.loggedInUser = null;
-        Swal.fire("Email atau password salah");
-      }
-    },
-    logoutUser: (state) => {
-      state.isLoggedin = false;
-      state.loggedInUser = null;
-      // Update localStorage
-      try {
-        localStorage.removeItem("isLoggedin");
-        localStorage.removeItem("loggedInUser");
-      } catch (e) {
-        console.log("Error removing login state from localStorage", e);
+        console.log("Error saving skills to localStorage", e);
       }
     },
   },
 });
 
-const generateId = (currentUsers) => {
-  if (currentUsers.length === 0) {
-    return 1;
-  } else {
-    const lastUser = currentUsers[currentUsers.length - 1];
-    return lastUser.id + 1;
-  }
-};
+export function Skills(input) {
+  return (dispatch) => {
+    const {
+      skillCategory,
+      skillName,
+      skillDesc,
+      skillLearn,
+      availableDay,
+      time,
+      metode,
+      notes,
+    } = input;
 
-export function Registration(input) {
-  return (dispatch, getState) => {
-    const { fullname, email, gender, file, password, cpassword } = input;
+    console.log("Input diterima:", input);
 
     // Validasi input
-    if (!fullname) {
-      Swal.fire("Nama Lengkap tidak boleh kosong");
+    if (!skillCategory) {
+      Swal.fire("Kategori Keterampilan tidak boleh kosong");
       return;
     }
 
-    if (!email) {
-      Swal.fire("Email tidak boleh kosong");
+    if (!skillName) {
+      Swal.fire("Nama Keterampilan tidak boleh kosong");
       return;
     }
 
-    if (!gender) {
-      Swal.fire("Jenis Kelamin tidak boleh kosong");
+    if (!skillDesc) {
+      Swal.fire("Deskripsi Keterampilan  tidak boleh kosong");
       return;
     }
 
-    if (!file) {
-      Swal.fire("Bukti Identitas tidak boleh kosong");
+    if (!skillLearn) {
+      Swal.fire("Nama Keterampilan yang ingin dipelajari tidak boleh kosong");
       return;
     }
 
-    if (!password || !cpassword) {
-      Swal.fire("Password tidak boleh kosong");
+    if (!availableDay) {
+      Swal.fire("Ketersediaan Hari tidak boleh kosong");
       return;
     }
 
-    if (password !== cpassword) {
-      Swal.fire("Password tidak sesuai");
+    if (!time) {
+      Swal.fire("Ketersediaan Waktu tidak boleh kosong");
       return;
     }
 
-    const currentUsers = getState().users.users;
-    const newId = generateId(currentUsers);
+    if (!metode) {
+      Swal.fire("Metode tidak boleh kosong");
+      return;
+    }
 
+    // Mendapatkan informasi pengguna yang login
+    const userLogin = JSON.parse(localStorage.getItem("loggedInUser")) || null;
+
+    console.log("User Login:", userLogin);
+
+    const newId = uuidv4();
     const currentDate = new Date();
-    let newUser = {
-      id: newId,
-      fullname,
-      email,
-      gender,
-      file,
-      password,
+
+    let newSkills = {
+      id_post: newId,
+      id_user: userLogin.id,
+      fullname: userLogin.fullname,
+      skillCategory,
+      skillName,
+      skillDesc,
+      skillLearn,
+      availableDay,
+      time,
+      metode,
+      notes: notes || "", // Pastikan notes tidak undefined
       active: 1,
       status: 1,
       createdate: currentDate.toISOString(),
     };
 
-    dispatch(addUser(newUser));
+    // Dispatch action untuk menambahkan keterampilan
+    dispatch(addSkills(newSkills));
 
-    Swal.fire("Pengguna berhasil ditambahkan");
+    Swal.fire("Keterampilan berhasil ditambahkan").then(() => {
+      window.location.href = "/skills";
+    });
   };
 }
 
-export function LoginUser(input) {
-  return (dispatch, getState) => {
-    const { email, password } = input;
-    const { users } = getState().users;
-
-    const user = users.find(
-      (user) => user.email === email && user.password === password
-    );
-
-    if (user) {
-      dispatch(loginUser({ email, password }));
-      Swal.fire("Pengguna berhasil Login").then(() => {
-        window.location.href = "/skills";
-      });
-    } else {
-      Swal.fire("Email atau password salah");
-    }
-  };
-}
-
-export const { addUser, loginUser, logoutUser } = skillsSlice.actions;
+export const { addSkills } = skillsSlice.actions;
 export default skillsSlice.reducer;

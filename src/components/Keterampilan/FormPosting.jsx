@@ -1,7 +1,44 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import styles from "../../assets/Skills.module.css";
+import { useEffect, useState } from "react";
+import { Skills } from "../../redux/skillsSlice"; // Ubah import di sini
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function FormPosting() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [input, setInput] = useState({
+    skillCategory: "",
+    skillName: "",
+    skillLearn: "",
+    availableDay: "",
+    time: "",
+    metode: "",
+    notes: "",
+  });
+
+  useEffect(() => {
+    const userLogin = JSON.parse(localStorage.getItem("loggedInUser")) || null;
+    if (!userLogin) {
+      navigate("/"); 
+    }
+  }, [navigate]);
+
+  const handleInput = (event) => {
+    const { name, value } = event.target;
+    setInput((prevInput) => ({
+      ...prevInput,
+      [name]: value,
+    }));
+  };
+
+  const handleAdd = (e) => {
+    e.preventDefault();
+
+    dispatch(Skills(input));
+  };
+
   return (
     <>
       <div className="wrapper w-full bg-[#BA324F] rounded-b-[50px] flex flex-col gap-3 justify-center items-center">
@@ -30,13 +67,13 @@ function FormPosting() {
         <div className={`${styles["skills-section"]} my-10`}>
           <div className="flex justify-center items-center">
             <h1 className="font-bold text-[2rem] text-[#BA324F]">
-              Formulir Ajukan Pertukaran
+              Formulir Posting Keterampilan
             </h1>
           </div>
 
           <div
             className={`${styles["skills-content"]} container mt-10 flex justify-center items-center gap-5 mx-3 flex-col`}>
-            <form action="">
+            <form >
               <h4 className="text-[#BA324F] text-[1rem] font-bold">
                 Keterampilan yang ingin Kamu Tawarkan
               </h4>
@@ -44,13 +81,15 @@ function FormPosting() {
                 {/* Input Kategori Keterampilan */}
                 <div>
                   <label
-                    htmlFor="skill-category"
+                    htmlFor="skillCategory"
                     className="text-[#04395E] font-semibold">
                     Kategori Keterampilan
                   </label>
                   <select
-                    id="skill-category"
-                    name="skill-category"
+                    id="skillCategory"
+                    name="skillCategory"
+                    value={input.skillCategory}
+                    onChange={handleInput}
                     className="w-full rounded-[10px] p-[12px_24px] bg-[#F2F5F7] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option value="">Pilih Kategori</option>
                     <option value="design">Desain Grafis</option>
@@ -59,18 +98,38 @@ function FormPosting() {
                   </select>
                 </div>
 
-                {/* Textarea Keterampilan yang Ingin Ditukar */}
+                {/* Input Nama Keterampilan */}
                 <div>
                   <label
                     className="text-[#04395E] font-semibold"
-                    htmlFor="skillsswap">
+                    htmlFor="skillName">
                     Nama Keterampilan
                   </label>
-                  <input className="w-full rounded-[10px] p-[12px_24px] bg-[#F2F5F7] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    name="nama-keterampilan"
-                    id="skillsswap"
+                  <input
+                    className="w-full rounded-[10px] p-[12px_24px] bg-[#F2F5F7] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    name="skillName"
+                    value={input.skillName}
+                    onChange={handleInput}
+                    id="skillName"
                     placeholder="Nama Keterampilan"
                     type="text"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    className="text-[#04395E] font-semibold"
+                    htmlFor="skillLearn">
+                    Deskripsi Keterampilan yang Ditawarkan
+                  </label>
+                  <textarea
+                    className="w-full rounded-[10px] p-[12px_24px] bg-[#F2F5F7] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    name="skillDesc"
+                    onChange={handleInput}
+                    value={input.skillDesc}
+                    id="skillLearn"
+                    placeholder="Ceritakan sedikit tentang keterampilan yang kamu tawarkan"
+                    rows="4"
                   />
                 </div>
               </div>
@@ -83,12 +142,15 @@ function FormPosting() {
                 <div>
                   <label
                     className="text-[#04395E] font-semibold"
-                    htmlFor="skillsswap">
-Deskripsi Keterampilan                  </label>
+                    htmlFor="skillLearn">
+                    Deskripsi Keterampilan
+                  </label>
                   <textarea
                     className="w-full rounded-[10px] p-[12px_24px] bg-[#F2F5F7] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    name="skillsswap"
-                    id="skillsswap"
+                    name="skillLearn"
+                    onChange={handleInput}
+                    value={input.skillLearn}
+                    id="skillLearn"
                     placeholder="Ceritakan sedikit tentang keterampilan yang kamu tawarkan"
                     rows="4"
                   />
@@ -99,46 +161,54 @@ Deskripsi Keterampilan                  </label>
                 Detail Pertukaran Keterampilan
               </h4>
               <div className="py-3 flex gap-5">
-                {/* Textarea Keterampilan yang Ingin Dipelajari */}
+                {/* Input Ketersediaan Hari */}
                 <div>
-                  <label className="text-[#04395E] font-semibold">
-                    Tanggal Usulan Sesi
+                  <label className="text-[#04395E] font-semibold" htmlFor="availableDay">
+                    Ketersediaan Hari
                   </label>
                   <input
                     className="w-full rounded-[10px] p-[12px_24px] bg-[#F2F5F7] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    name="date"
-                    id="date"
-                    placeholder="dd/mm/yyy"
-                    type="date"
+                    name="availableDay"
+                    id="availableDay"
+                    value={input.availableDay}
+                    onChange={handleInput}
+                    placeholder="Saya tersedia pada hari Sabtu-Minggu"
+                    type="text"
                   />
                 </div>
 
+                {/* Input Waktu Usulan Sesi */}
                 <div>
-                  <label className="text-[#04395E] font-semibold">
+                  <label className="text-[#04395E] font-semibold" htmlFor="time">
                     Waktu Usulan Sesi
                   </label>
                   <input
                     className="w-full rounded-[10px] p-[12px_24px] bg-[#F2F5F7] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    name="skillsswap"
-                    id="skillsswap"
-                    placeholder="dd/mm/yyy"
-                    type="time"
+                    name="time"
+                    id="time"
+                    placeholder="Saya bisa pada jam 13:00 - 15:00"
+                    value={input.time}
+                    onChange={handleInput}
+                    type="text"
                   />
                 </div>
 
+                {/* Input Metode Pertukaran */}
                 <div>
                   <label
-                    htmlFor="skill-category"
+                    htmlFor="metode"
                     className="text-[#04395E] font-semibold">
                     Metode Pertukaran
                   </label>
                   <select
-                    id="skill-category"
-                    name="skill-category"
+                    id="metode"
+                    name="metode"
+                    value={input.metode}
+                    onChange={handleInput}
                     className="w-full rounded-[10px] p-[12px_24px] bg-[#F2F5F7] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option value="">Pilih Metode</option>
-                    <option value="design">Online Zoom/Gmeet</option>
-                    <option value="web-development">Tukar Materi</option>
+                    <option value="online">Online Zoom/Gmeet</option>
+                    <option value="material">Tukar Materi</option>
                   </select>
                 </div>
               </div>
@@ -147,17 +217,19 @@ Deskripsi Keterampilan                  </label>
                 Catatan untuk Mitra
               </h4>
               <div className="py-3 w-full gap-5">
-                {/* Textarea Keterampilan yang Ingin Dipelajari */}
+                {/* Textarea Catatan */}
                 <div>
                   <label
                     className="text-[#04395E] font-semibold"
-                    htmlFor="skillsswap">
-                    catatn/komentar untuk mitra
+                    htmlFor="notes">
+                    Catatan/Komentar untuk Mitra
                   </label>
                   <textarea
                     className="w-full rounded-[10px] p-[12px_24px] bg-[#F2F5F7] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    name="skillsswap"
-                    id="skillsswap"
+                    name="notes"
+                    value={input.notes}
+                    onChange={handleInput}
+                    id="notes"
                     placeholder="Deskripsikan keterampilan yang ingin Anda tukarkan"
                     rows="4"
                   />
@@ -165,8 +237,9 @@ Deskripsi Keterampilan                  </label>
               </div>
 
               <div className="flex justify-center items-center">
-                {" "}
-                <button className="lg-btn-primary">Ajukan Pertukaran</button>
+                <button onClick={handleAdd} className="lg-btn-primary">
+                  Tambah Keterampilan
+                </button>
               </div>
             </form>
           </div>
