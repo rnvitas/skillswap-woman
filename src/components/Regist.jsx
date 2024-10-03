@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 function Regist() {
 const dispatch =useDispatch();
-const { users} = useSelector((state) => state.users);
+// const {users} = useSelector((state) => state.users);
 
   const[input,setInput]=useState({
     id:"",

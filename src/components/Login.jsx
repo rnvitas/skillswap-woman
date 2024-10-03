@@ -3,8 +3,7 @@ import foto from '../foto/bg-benefits.png'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Auth } from '../redux/userSlice'
-import Swal from 'sweetalert2'
+import { LoginUser } from '../redux/userSlice'
 
 
 
@@ -26,9 +25,10 @@ function Login () {
 
     const handleLogin = (e) => {
         e.preventDefault();
+    // const navigate = useNavigate();
 
         // Dispatch action login
-        dispatch(Auth(input));
+        dispatch(LoginUser(input));
       };
 
     return (

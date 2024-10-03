@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Navigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 // Fungsi untuk memuat state dari localStorage
@@ -26,7 +27,7 @@ const loadState = () => {
 // Inisialisasi state dari localStorage
 const initialState = loadState();
 
-const userSlice = createSlice({
+const skillsSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
@@ -164,5 +165,5 @@ export function LoginUser(input) {
   };
 }
 
-export const { addUser, loginUser, logoutUser } = userSlice.actions;
-export default userSlice.reducer;
+export const { addUser, loginUser, logoutUser } = skillsSlice.actions;
+export default skillsSlice.reducer;
