@@ -1,10 +1,11 @@
+
 import logo from '../foto/lg-ssw.png'
 import foto from '../foto/bg-benefits.png'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { LoginUser } from '../redux/userSlice'
-
+import { Auth } from '../redux/userSlice'
+import Swal from 'sweetalert2'
 
 
 function Login () {
@@ -13,8 +14,8 @@ function Login () {
         email:"",
         password:"",
     });
-    const { isLoggedIn, loggedInUser } = useSelector((state) => state.users);
 
+    
     const handleInput = (event) => {
         setInput({
             ...input,
@@ -25,10 +26,9 @@ function Login () {
 
     const handleLogin = (e) => {
         e.preventDefault();
-    // const navigate = useNavigate();
 
         // Dispatch action login
-        dispatch(LoginUser(input));
+        dispatch(Auth(input));
       };
 
     return (

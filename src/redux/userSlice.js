@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 // Fungsi untuk memuat state dari localStorage
@@ -47,7 +48,6 @@ const userSlice = createSlice({
           user.email === action.payload.email &&
           user.password === action.payload.password
       );
-
       if (user) {
         state.isLoggedin = true;
         state.loggedInUser = user;
@@ -144,7 +144,7 @@ export function Registration(input) {
   };
 }
 
-export function LoginUser(input) {
+export function Auth(input) {
   return (dispatch, getState) => {
     const { email, password } = input;
     const { users } = getState().users;
