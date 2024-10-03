@@ -3,6 +3,7 @@ import foto from "../foto/bg-benefits.png";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Registration } from "../redux/userSlice";
+import { Link } from "react-router-dom";
 
 function Regist() {
 const dispatch =useDispatch();
@@ -152,7 +153,7 @@ const handleAddUser = (e) => {
 
             <div className="login-info-bottom py-5">
               <h6>
-                Sudah Punya Akun? <span>Masuk</span>
+                Sudah Punya Akun? <span><Link to="/login">Masuk</Link></span>
               </h6>
             </div>
           </div>
