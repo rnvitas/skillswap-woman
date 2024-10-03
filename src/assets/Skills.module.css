@@ -1,0 +1,48 @@
+.skills-section {
+  padding-top: 2rem;
+  min-height: 100vh;
+}
+
+.skills-header {
+  border-radius: 0px 0px 50px 50px;
+  padding: 5rem 2rem;
+  margin-top: 7rem;
+}
+
+.skills-header h1 {
+  font-size: 2rem;
+  color: white;
+  font-weight: bolder;
+}
+
+.skills-header p {
+  color: white;
+}
+
+.skills-heading h1 {
+  color: var(--secondary-color);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.skills-card {
+  width: 600px;
+  max-width: 100%;
+  padding: 12px 24px;
+}
+
+.skills-header-form {
+  border-radius: 0px 0px 50px 50px;
+  padding: 4rem 2rem;
+  /* margin-top: 7rem; */
+}
+
+.skills-header-form h1 {
+  font-size: 2rem;
+  color: white;
+  font-weight: bolder;
+}
+
+.skills-header-form p {
+  color: white;
+}

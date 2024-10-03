@@ -1,0 +1,201 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&family=Jost:ital,wght@0,100..900;1,100..900&display=swap");
+:root {
+  --primary-color: #04395e;
+  --secondary-color: #ba324f;
+  --light-primary: #d9e1e7;
+  --light-secondary: #f8ebed;
+  --dark-primary: #032b47;
+  --dark-secondary: #8c263b;
+  --light-grey: #8c8c8c;
+  --dark-black: #000000;
+  --white: #ffffff;
+}
+
+body {
+  font-size: 14px !important;
+  font-family: "Gabarito", sans-serif !important;
+}
+
+.wrapper {
+  margin: 0 auto !important;
+  width: 1300px;
+}
+
+.wrapper-mobile {
+  width: 480px;
+  margin: 0 auto;
+}
+
+@media (max-width: 576px) {
+  .wrapper-mobile {
+    max-width: 385px; /* Lebar maksimal container selebar ponsel */
+  }
+
+  .navbar {
+    max-width: 385px;
+  }
+}
+
+/* style button */
+.sm-btn-primary {
+  display: inline-flex;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  border-radius: 10px;
+  background: var(--primary-color);
+  color: var(--white);
+  text-decoration: none;
+}
+
+.sm-btn-secondary {
+  display: inline-flex;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  border-radius: 10px;
+  background: var(--secondary-color);
+  color: var(--white);
+  text-decoration: none;
+}
+
+.lg-btn-primary {
+  display: inline-flex;
+  padding: 12px 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  border-radius: 10px;
+  background: #04395e;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.lg-btn-secondary {
+  display: inline-flex;
+  padding: 12px 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  border-radius: 10px;
+  background: var(--secondary-color);
+  color: var(--white);
+  text-decoration: none;
+}
+
+.lg-btn-secondary-stroke {
+  display: inline-flex;
+  padding: 12px 40px;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  border-radius: 10px;
+  border: 1px solid var(--secondary-color);
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
+.sm-btn-primary a {
+  text-decoration: none;
+  color: white;
+}
+
+.sm-btn-secondary a {
+  text-decoration: none;
+  color: white;
+}
+
+.lg-btn-primary a {
+  text-decoration: none;
+  color: white;
+}
+
+.lg-btn-secondary a {
+  text-decoration: none;
+  color: white;
+}
+
+.lg-btn-primary:hover {
+  color: white;
+}
+
+.lg-btn-secondary:hover {
+  color: white;
+}
+
+.sm-btn-primary:hover {
+  color: white;
+}
+
+.sm-btn-secondary:hover {
+  color: white;
+}
+
+/* style button */
+
+/* footer */
+.footer {
+  /* margin-top: 3rem; */
+  background-color: var(--primary-color);
+  color: white;
+  text-align: center;
+  padding: 24px 24px;
+}
+
+.footer p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto !important;
+}
+
+.card-login {
+  border-radius: 20px;
+  box-shadow: 0px 2px 4px -2px rgba(16, 24, 40, 0.1),
+    0px 4px 6px -1px rgba(16, 24, 40, 0.1);
+  width: 500px;
+  max-width: 100%;
+  background-color: white;
+}
+
+.auth-container {
+  padding-top: 10rem;
+}
+
+.login-info img {
+  width: 40%;
+  max-width: 100%;
+}
+
+.login-info h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.login-info p {
+  color: var(--secondary-color);
+  text-align: center;
+  width: 60%;
+  max-width: 100%;
+}
+
+.login-info-bottom h6 {
+  color: var(--secondary-color);
+}
+
+.login-info-bottom h6 span {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.form-group label {
+  color: var(--primary-color);
+  font-weight: bold;
+}
