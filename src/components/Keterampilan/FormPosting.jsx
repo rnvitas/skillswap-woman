@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import styles from "../../assets/Skills.module.css";
 import { useEffect, useState } from "react";
-import { Skills } from "../../redux/skillsSlice"; // Ubah import di sini
+import { Skills } from "../../redux/skillsSlice"; 
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 

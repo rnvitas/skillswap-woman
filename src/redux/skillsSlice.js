@@ -6,14 +6,18 @@ import Swal from "sweetalert2";
 const loadState = () => {
   try {
     const postskills = JSON.parse(localStorage.getItem("post-skills")) || [];
+    const selectedSkill =
+      JSON.parse(localStorage.getItem("selected-skill")) || null;
 
     return {
       postskills,
+      selectedSkill,
     };
   } catch (e) {
     console.warn("Gagal memuat state dari localStorage:", e);
     return {
       postskills: [],
+      selectedSkill: null,
     };
   }
 };
@@ -35,6 +39,22 @@ const skillsSlice = createSlice({
         localStorage.setItem("post-skills", JSON.stringify(existingSkills));
       } catch (e) {
         console.log("Error saving skills to localStorage", e);
+      }
+    },
+    loadSkills: (state, action) => {
+      state.selectedSkill = action.payload || null;
+      // Simpan selectedSkill ke localStorage
+      try {
+        if (action.payload) {
+          localStorage.setItem(
+            "selected-skill",
+            JSON.stringify(action.payload)
+          );
+        } else {
+          localStorage.removeItem("selected-skill");
+        }
+      } catch (e) {
+        console.log("Error saving selectedSkill to localStorage", e);
       }
     },
   },
@@ -125,5 +145,23 @@ export function Skills(input) {
   };
 }
 
-export const { addSkills } = skillsSlice.actions;
+export function getSkillsbyId(id) {
+  return (dispatch, getState) => {
+    try {
+      const skills = getState().skills.postskills;
+      const skillById = skills.find((skill) => skill.id_post === id);
+
+      if (skillById) {
+        dispatch(loadSkills(skillById));
+      } else {
+        Swal.fire("Skill not found");
+      }
+    } catch (error) {
+      console.error("Error loading skill by ID:", error);
+      Swal.fire("An error occurred while fetching the skill.");
+    }
+  };
+}
+
+export const { addSkills, loadSkills } = skillsSlice.actions;
 export default skillsSlice.reducer;

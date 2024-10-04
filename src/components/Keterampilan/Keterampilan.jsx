@@ -2,15 +2,11 @@ import styles from "../../assets/Skills.module.css";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import CardSkills from "./CardSkills";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import {  useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 function Keterampilan() {
-   const { postskills,
-    users,
-    isLoggedin,
-    loggedInUser,} =useSelector((state)=>state.skills)
+   const { postskills} =useSelector((state)=>state.skills)
 
   return (
     <>
@@ -72,7 +68,7 @@ function Keterampilan() {
            
            {postskills == "" ?  <h1 className="font-bold text-[1.3rem] text-center text-black">Belum Ada Keterampilan yang Bisa Ditukar</h1> :
            postskills.map((item)=>(
-            <CardSkills skills={item} key={item.id_post_skills}/>
+            <CardSkills skills={item} key={item.id_post}   />
 
            ))
            }
