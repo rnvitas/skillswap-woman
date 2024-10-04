@@ -3,6 +3,7 @@ import styles from "../../assets/Skills.module.css";
 function CardReceive ({list}) {
     return(
         <>
+        
           <div className={`${styles["skills-card"]}`}>
               <div
                 className={`px-4 py-5 rounded-t-[10px]
