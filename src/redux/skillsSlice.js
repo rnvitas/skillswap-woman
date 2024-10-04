@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 // Fungsi untuk memuat state dari localStorage
 const loadState = () => {
   try {
+    const skillSwap = JSON.parse(localStorage.getItem("request-swap")) || [];
     const postskills = JSON.parse(localStorage.getItem("post-skills")) || [];
     const selectedSkill =
       JSON.parse(localStorage.getItem("selected-skill")) || null;
@@ -12,12 +13,14 @@ const loadState = () => {
     return {
       postskills,
       selectedSkill,
+      skillSwap,
     };
   } catch (e) {
     console.warn("Gagal memuat state dari localStorage:", e);
     return {
       postskills: [],
       selectedSkill: null,
+      skillSwap: [],
     };
   }
 };
@@ -55,6 +58,18 @@ const skillsSlice = createSlice({
         }
       } catch (e) {
         console.log("Error saving selectedSkill to localStorage", e);
+      }
+    },
+    addRequest: (state, action) => {
+      state.skillSwap.push(action.payload);
+      // Update localStorage
+      try {
+        const existingSkills =
+          JSON.parse(localStorage.getItem("request-swap")) || [];
+        existingSkills.push(action.payload);
+        localStorage.setItem("request-swap", JSON.stringify(existingSkills));
+      } catch (e) {
+        console.log("Error saving skills to localStorage", e);
       }
     },
   },
@@ -163,5 +178,90 @@ export function getSkillsbyId(id) {
   };
 }
 
-export const { addSkills, loadSkills } = skillsSlice.actions;
+export function skillRequest(input, id) {
+  return (dispatch, getState) => {
+    const {
+      skillSwapCategory,
+      skillswapDesc,
+      reasonLearn,
+      dateSession,
+      timeSession,
+      skillMethod,
+      skillComments,
+    } = input;
+
+    if (!skillSwapCategory) {
+      Swal.fire("Kategori Keterampilan tidak boleh kosong");
+      return;
+    }
+
+    if (!skillswapDesc) {
+      Swal.fire("Nama Keterampilan tidak boleh kosong");
+      return;
+    }
+
+    if (!reasonLearn) {
+      Swal.fire("Field tidak boleh kosong");
+      return;
+    }
+
+    if (!dateSession) {
+      Swal.fire("Tanggal Sesi tidak boleh kosong");
+      return;
+    }
+
+    if (!timeSession) {
+      Swal.fire("Waktu Sesi tidak boleh kosong");
+      return;
+    }
+
+    if (!skillMethod) {
+      Swal.fire("Metode Pertukaran tidak boleh kosong");
+      return;
+    }
+
+    const userLogin = JSON.parse(localStorage.getItem("loggedInUser")) || null;
+    // console.log("User Login:", userLogin);
+
+    const skills = getState().skills.postskills;
+    const skillById = skills.find((skill) => skill.id_post === id);
+
+    if (skillById) {
+      const newId = uuidv4();
+      const currentDate = new Date();
+
+      let newSkills = {
+        id_request: newId,
+        id_post: skillById.id_post,
+        id_requester: userLogin.id,
+        id_recevier: skillById.id_user,
+        fullname_requester: userLogin.fullname,
+        fullname_receiver: skillById.fullname,
+        skillSwapCategory,
+        skillswapDesc,
+        reasonLearn,
+        dateSession,
+        timeSession,
+        skillMethod,
+        skillComments,
+        active: 1,
+        status: "request",
+        createdate: currentDate.toISOString(),
+      };
+
+      // Dispatch action untuk menambahkan keterampilan
+      dispatch(addRequest(newSkills));
+      //   Swal.fire(
+      //     "Request berhasil diajukan , silahkan lihat di menu Pertukaran AKtif"
+      //   );
+      Swal.fire(
+        "Request berhasil diajukan , silahkan lihat di menu Pertukaran AKtif"
+      ).then(() => {
+        window.location.href = "/skills";
+      });
+    }
+  };
+}
+
+export const { addSkills, loadSkills, addRequest } = skillsSlice.actions;
 export default skillsSlice.reducer;

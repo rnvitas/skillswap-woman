@@ -164,5 +164,14 @@ export function Auth(input) {
   };
 }
 
+export function Logout() {
+  return (dispatch) => {
+    dispatch(logoutUser());
+    Swal.fire("berhasil logout").then(() => {
+      window.location.href = "/";
+    });
+  };
+}
+
 export const { addUser, loginUser, logoutUser } = userSlice.actions;
 export default userSlice.reducer;

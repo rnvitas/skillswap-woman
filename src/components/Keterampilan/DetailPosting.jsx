@@ -1,12 +1,18 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import styles from "../../assets/Skills.module.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSkillsbyId } from "../../redux/skillsSlice";
 
 function DetailPosting() {
   const { selectedSkill } = useSelector((state) => state.skills);
+  const navigate = useNavigate();
+  
+  const handleSwap = () => {
+    navigate(`/formswap/${selectedSkill.id_post}`);
+  };
+
 
   const { id_post } = useParams();
   const dispatch = useDispatch();
@@ -117,13 +123,13 @@ function DetailPosting() {
                     htmlFor="skillsswap">
                     Catatan
                   </label>
-                  <p className="mt-3">{}</p>
+                  <p className="mt-3">{selectedSkill.notes}</p>
                 </div>
               </div>
 
               <div className="flex justify-center items-center my-6">
                 {" "}
-                <button className="lg-btn-primary">Ajukan Pertukaran</button>
+                <button onClick={handleSwap} className="lg-btn-primary">Ajukan Pertukaran</button>
               </div>
 
               <div className="flex justify-center flex-col items-center my-8">

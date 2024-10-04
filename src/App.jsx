@@ -39,7 +39,7 @@ function App() {
 
       </Route>
 
-      <Route path="/formswap" element={<FormSwap/>} />
+      <Route path="/formswap/:id_post" element={<FormSwap/>} />
       <Route path="/formskills" element={<FormPosting/>} />
       <Route path="/detailskills/:id_post" element={<DetailPosting/>} />
       <Route path="/detailswap/:id_post" element={<DetailSwap/>} />

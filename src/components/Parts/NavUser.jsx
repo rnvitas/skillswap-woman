@@ -1,7 +1,15 @@
+import { useDispatch, useSelector } from 'react-redux'
 import styles from '../../assets/Navigation.module.css'
 import logo from '../../foto/lg-ssw.png'
+import { Logout } from '../../redux/userSlice';
 
 function NavUser (){
+    // const {users}=useSelector((state)=>state.users);
+    const dispatch=useDispatch();
+    const handleLogout = (e)=>{
+        e.preventDefault();
+        dispatch(Logout());
+    }
     return (
         <>
          <header className="wrapper container">
@@ -19,7 +27,7 @@ function NavUser (){
         </div>
 
         <div className={`${styles['button-join']}`}>
-            <button className="sm-btn-secondary">Profile</button>
+            <button className="sm-btn-secondary" onClick={handleLogout}>Profile</button>
         </div>
 
         <div className={`${styles['toggle-button']}`} id="burger-menu">
