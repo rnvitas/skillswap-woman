@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styles from '../../assets/Landing.module.css';
 import foto from '../../foto/lg-ssw.png'
 
@@ -13,7 +14,7 @@ function Cta (){
         <h1 className=''>Siap Untuk Memulai?</h1>
         <p className=''>Jadilah bagian dari komunitas perempuan yang saling menginspirasi dan mendukung satu sama lain. Tukar keterampilan dan tumbuh bersama!</p>
            
-           <button className='lg-btn-secondary'>Mulai Sekarang!</button>
+           <Link to="/register"><button className='lg-btn-secondary'>Mulai Sekarang!</button></Link>
            </div>
         </div>
         </div>

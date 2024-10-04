@@ -5,7 +5,7 @@ import foto from '../../foto/bg-benefits.png'
 function Benefits(){
     return(
         <>
-        <div className="wrapper container" style={{ backgroundImage: `url(${foto})` }}>
+        <div className="wrapper container" style={{ backgroundImage: `url(${foto})` }} id="benefit-skillswap">
             <div className={`${styles['benefits-section']}`}>
                 <div className='flex justify-center'>
                     <div className={`${styles['benefits-heading']} flex justify-center items-center`}>

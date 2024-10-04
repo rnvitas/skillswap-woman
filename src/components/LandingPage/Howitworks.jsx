@@ -11,7 +11,7 @@ function Howitworks () {
                     backgroundImage: `url(${foto})`,
                     backgroundSize: 'cover',
                     backgroundRepeat: 'no-repeat'
-                }}>
+                }} id="howitworks">
 
             <div className={`${styles['howitworks-section']}`}>
                 <div className="flex justify-center">
