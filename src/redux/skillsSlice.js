@@ -72,6 +72,35 @@ const skillsSlice = createSlice({
         console.log("Error saving skills to localStorage", e);
       }
     },
+
+    confirmReq: (state, action) => {
+      const updatedRequest = action.payload;
+
+      // Perbarui state.skillSwap dengan request yang sudah diubah
+      state.skillSwap = state.skillSwap.map((req) =>
+        req.id_request === updatedRequest.id_request ? updatedRequest : req
+      );
+
+      try {
+        // Ambil data request-swap dari localStorage
+        const requests = JSON.parse(localStorage.getItem("request-swap")) || [];
+
+        // Temukan indeks request yang akan diperbarui
+        const index = requests.findIndex(
+          (s) => s.id_request === updatedRequest.id_request
+        );
+
+        if (index !== -1) {
+          // Perbarui request di array
+          requests[index] = updatedRequest;
+
+          // Simpan kembali ke localStorage
+          localStorage.setItem("request-swap", JSON.stringify(requests));
+        }
+      } catch (e) {
+        console.log("Error saving skills to localStorage", e);
+      }
+    },
   },
 });
 
@@ -265,5 +294,48 @@ export function skillRequest(input, id) {
   };
 }
 
-export const { addSkills, loadSkills, addRequest } = skillsSlice.actions;
+export function confirmRequest(id) {
+  return (dispatch, getState) => {
+    Swal.fire({
+      title: "Apa kamu yakin ingin menerima pertukaran?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Ya",
+      reverseButtons: true,
+      denyButtonText: `Menolak`,
+      cancelButtonText: "Pikir-pikir lagi",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // const listReq = JSON.parse(localStorage.getItem("request-swap"));
+        const listReq = getState().skills.skillSwap;
+        const data = listReq.find((item) => item.id_request === id);
+
+        if (data) {
+          let newSesi = {
+            ...data,
+            status: "Menyetujui",
+          };
+          dispatch(confirmReq(newSesi));
+        }
+        Swal.fire("Anda Menerima", "", "success");
+      } else if (result.isDenied) {
+        // const listReq = JSON.parse(localStorage.getItem("request-swap"));
+        const listReq = getState().skills.skillSwap;
+        const data = listReq.find((item) => item.id_request === id);
+
+        if (data) {
+          let newSesi = {
+            ...data,
+            status: "Menolak",
+          };
+          dispatch(confirmReq(newSesi));
+        }
+        Swal.fire("Anda Menolak Pertukaran", "", "info");
+      }
+    });
+  };
+}
+
+export const { addSkills, loadSkills, addRequest, confirmReq } =
+  skillsSlice.actions;
 export default skillsSlice.reducer;

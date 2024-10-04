@@ -9,8 +9,8 @@ function SwapCard ({list}) {
             border-2 border-x-[#BA324F] border-t-[#BA324F] border-b-0`}>
                 <div className={`flex justify-between `}>
                   <div className={`flex flex-col gap-1`}>
-                    <h4 className="text-[#BA324F] font-bold text-[1rem]">
-                      {list.fullname_receiver}
+                  <h4 className="text-[1rem]">
+                      Nama Mitra : <span className="text-[#BA324F] font-bold text-[1rem]">{list.fullname_receiver}</span>
                     </h4>
                     <p className="text-[#8C8C8C]">{list.createdate}</p>
                   </div>
