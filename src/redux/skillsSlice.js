@@ -186,7 +186,7 @@ export function skillRequest(input, id) {
       reasonLearn,
       dateSession,
       timeSession,
-      skillMethod,
+      //   skillMethod,
       skillComments,
     } = input;
 
@@ -215,10 +215,10 @@ export function skillRequest(input, id) {
       return;
     }
 
-    if (!skillMethod) {
-      Swal.fire("Metode Pertukaran tidak boleh kosong");
-      return;
-    }
+    // if (!skillMethod) {
+    //   Swal.fire("Metode Pertukaran tidak boleh kosong");
+    //   return;
+    // }
 
     const userLogin = JSON.parse(localStorage.getItem("loggedInUser")) || null;
     // console.log("User Login:", userLogin);
@@ -234,15 +234,17 @@ export function skillRequest(input, id) {
         id_request: newId,
         id_post: skillById.id_post,
         id_requester: userLogin.id,
-        id_recevier: skillById.id_user,
+        id_receiver: skillById.id_user,
         fullname_requester: userLogin.fullname,
         fullname_receiver: skillById.fullname,
+        skill_rev_cat: skillById.skillCategory,
+        skill_rev_name: skillById.skillName,
         skillSwapCategory,
         skillswapDesc,
         reasonLearn,
         dateSession,
         timeSession,
-        skillMethod,
+        skillMethod: skillById.metode,
         skillComments,
         active: 1,
         status: "request",

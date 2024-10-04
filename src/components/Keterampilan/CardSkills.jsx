@@ -45,6 +45,13 @@ function CardSkills({ skills }) {
           <div className={`mt-3 flex gap-3 flex-col `}>
             <h4 className="font-bold text-[1.2rem]">{skills.skillName}</h4>
             <p className="text-[#8C8C8C]">{skills.skillDesc}</p>
+
+          </div>
+
+          <div className="flex flex-col justify-between gap-2 mt-2">
+          <p className="text-black">Metode Pertukaran :<span className="text-[#BA324F]">{skills.metode}</span></p>
+          <p className="text-black">Ketersediaan Waktu :<span className="text-[#BA324F]">{skills.availableDay}</span> | Waktu Sesi : <span className="text-[#BA324F]">{skills.time}</span></p>
+
           </div>
         </div>
         <div

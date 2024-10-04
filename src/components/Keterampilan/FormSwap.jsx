@@ -15,7 +15,7 @@ function FormSwap() {
     reasonLearn: "", 
     dateSession: "", 
     timeSession: "", 
-    skillMethod: "", 
+    // skillMethod: "", 
     skillComments: "", 
   });
 
@@ -161,24 +161,6 @@ function FormSwap() {
                   />
                 </div>
 
-                {/* Input Metode Pertukaran */}
-                <div>
-                  <label
-                    htmlFor="skillMethod"
-                    className="text-[#04395E] font-semibold">
-                    Metode Pertukaran
-                  </label>
-                  <select
-                    id="skillMethod"
-                    name="skillMethod" // Changed to match the state
-                    value={input.skillMethod}
-                    onChange={handleInput}
-                    className="w-full rounded-[10px] p-[12px_24px] bg-[#F2F5F7] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <option value="">Pilih Metode</option>
-                    <option value="online">Online Zoom/Gmeet</option>
-                    <option value="material-exchange">Tukar Materi</option>
-                  </select>
-                </div>
               </div>
 
               <h4 className="text-[#BA324F] text-[1rem] font-bold">

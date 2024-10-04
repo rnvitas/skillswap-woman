@@ -113,6 +113,15 @@ function DetailPosting() {
                     {selectedSkill.availableDay}, Pukul : {selectedSkill.time}
                   </p>
                 </div>
+
+                <div>
+                  <label className="text-[#04395E] font-semibold">
+                    Metode Pertukaran
+                  </label>
+                  <p className="mt-3">
+                    {selectedSkill.metode}
+                  </p>
+                </div>
               </div>
 
               <div className="py-3 w-full gap-5">
