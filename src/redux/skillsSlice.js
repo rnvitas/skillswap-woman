@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 // Fungsi untuk memuat state dari localStorage
 const loadState = () => {
   try {
-    const skillSwap = JSON.parse(localStorage.getItem("request-swap")) || [];
+    // const skillSwap = JSON.parse(localStorage.getItem("request-swap")) || [];
     const postskills = JSON.parse(localStorage.getItem("post-skills")) || [];
     const selectedSkill =
       JSON.parse(localStorage.getItem("selected-skill")) || null;
@@ -13,24 +13,44 @@ const loadState = () => {
     return {
       postskills,
       selectedSkill,
-      skillSwap,
+      //   skillSwap,
     };
   } catch (e) {
     console.warn("Gagal memuat state dari localStorage:", e);
     return {
       postskills: [],
       selectedSkill: null,
+      //   skillSwap: [],
+    };
+  }
+};
+
+const loadStateSwap = () => {
+  try {
+    const skillSwap = JSON.parse(localStorage.getItem("request-swap")) || [];
+
+    return {
+      skillSwap,
+    };
+  } catch (e) {
+    console.warn("Gagal memuat state dari localStorage:", e);
+    return {
       skillSwap: [],
     };
   }
 };
 
 // Inisialisasi state dari localStorage
-const initialState = loadState();
+const dataskills = loadState();
+const swapskills = loadStateSwap();
 
 const skillsSlice = createSlice({
   name: "skill",
-  initialState,
+  initialState: {
+    postskills: dataskills.postskills,
+    selectedSkill: dataskills.selectedSkill,
+    skillSwap: swapskills.skillSwap,
+  },
   reducers: {
     addSkills: (state, action) => {
       state.postskills.push(action.payload);
