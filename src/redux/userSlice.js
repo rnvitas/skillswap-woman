@@ -140,7 +140,9 @@ export function Registration(input) {
 
     dispatch(addUser(newUser));
 
-    Swal.fire("Pengguna berhasil ditambahkan");
+    Swal.fire("Berhasil melakukan registrasi").then(() => {
+      window.location.href = "/login";
+    });
   };
 }
 
