@@ -7,12 +7,16 @@ import { getSkillsbyId } from "../../redux/skillsSlice";
 
 function DetailPosting() {
   const { selectedSkill } = useSelector((state) => state.skills);
+  const { loggedInUser } = useSelector((state) => state.users);
   const navigate = useNavigate();
-  
+
   const handleSwap = () => {
     navigate(`/formswap/${selectedSkill.id_post}`);
   };
 
+  const handleEdit = () => {
+    navigate(`/formswap/${selectedSkill.id_post}`);
+  };
 
   const { id_post } = useParams();
   const dispatch = useDispatch();
@@ -23,13 +27,14 @@ function DetailPosting() {
     }
   }, [dispatch, id_post]);
 
- 
   return (
     <>
       <div className="wrapper w-full bg-[#BA324F] rounded-b-[50px] flex flex-col gap-3 justify-center items-center">
         <div
           className={`${styles["skills-header-form"]} container flex flex-col gap-3`}>
-          <div className="py-3 flex gap-10 items-center" onClick={() => navigate(-1)}>
+          <div
+            className="py-3 flex gap-10 items-center"
+            onClick={() => navigate(-1)}>
             <Icon
               icon="fluent:ios-arrow-24-filled"
               width="48"
@@ -118,9 +123,7 @@ function DetailPosting() {
                   <label className="text-[#04395E] font-semibold">
                     Metode Pertukaran
                   </label>
-                  <p className="mt-3">
-                    {selectedSkill.metode}
-                  </p>
+                  <p className="mt-3">{selectedSkill.metode}</p>
                 </div>
               </div>
 
@@ -138,7 +141,15 @@ function DetailPosting() {
 
               <div className="flex justify-center items-center my-6">
                 {" "}
-                <button onClick={handleSwap} className="lg-btn-primary">Ajukan Pertukaran</button>
+                {selectedSkill.id_user === loggedInUser.id ? (
+                  <button onClick={handleEdit} className="lg-btn-primary">
+                    Edit Pertukaran
+                  </button>
+                ) : (
+                  <button onClick={handleSwap} className="lg-btn-secondary">
+                    Ajukan Pertukaran
+                  </button>
+                )}
               </div>
 
               <div className="flex justify-center flex-col items-center my-8">
