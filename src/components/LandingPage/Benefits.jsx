@@ -30,10 +30,10 @@ function Benefits(){
 
             <div className="flex justify-center">
                 <div className={`${styles['benefits-content']} my-10 flex gap-5`}>
-                <h6>1</h6>
+                <h6>2</h6>
                 <div className={`${styles['benefits-card']}`} >
-                    <h4>Belajar Keterampilan Baru</h4>
-                    <p className='py-5'>Tingkatkan keahlian Kamu dalam berbagai bidang, dari keterampilan teknis hingga hobi kreatif.</p>
+                    <h4>Bagi Keahlian Kamu</h4>
+                    <p className='py-5'>Ajarkan keterampilan Anda kepada perempuan lain dan jadilah bagian dari komunitas yang saling mendukung.</p>
                 </div>
 
                 </div>
@@ -44,10 +44,10 @@ function Benefits(){
 
             <div className="flex justify-end">
                 <div className={`${styles['benefits-content']} my-10 flex gap-5`}>
-                <h6>1</h6>
+                <h6>3</h6>
                 <div className={`${styles['benefits-card']}`} >
-                    <h4>Belajar Keterampilan Baru</h4>
-                    <p className='py-5'>Tingkatkan keahlian Kamu dalam berbagai bidang, dari keterampilan teknis hingga hobi kreatif.</p>
+                    <h4>Fleksibel dan Aman</h4>
+                    <p className='py-5'>Pilih cara bertukar keterampilan, baik secara online, offline, atau melalui materi</p>
                 </div>
 
                 </div>

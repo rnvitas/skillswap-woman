@@ -79,9 +79,13 @@ function FormSwap() {
                     onChange={handleInput}
                     className="w-full rounded-[10px] p-[12px_24px] bg-[#F2F5F7] border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option value="">Pilih Kategori</option>
-                    <option value="design">Desain Grafis</option>
-                    <option value="web-development">Pengembangan Web</option>
-                    <option value="marketing">Pemasaran</option>
+                    <option value="Keterampilan Kreatif">Keterampilan Kreatif</option>
+                    <option value="Keterampilan Teknologi">Keterampilan Teknologi</option>
+                    <option value="Keterampilan Komunikasi">Keterampilan Komunikasi</option>
+                    <option value="Keterampilan Bisnis">Keterampilan Bisnis</option>
+                    <option value="Keterampilan Kehidupan">Keterampilan Kehidupan</option>
+                    <option value="Keterampilan Personal">Keterampilan Personal</option>
+                    <option value="Keterampilan Bahasa">Keterampilan Bahasa</option>
                   </select>
                 </div>
 
