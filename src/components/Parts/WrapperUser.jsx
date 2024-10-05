@@ -1,12 +1,12 @@
 import { Outlet } from "react-router-dom"
 import NavUser from "./NavUser"
-import Footer from "./Footer"
+import FooterUser from "./FooterUser"
 function WrapperUser () {
     return(<>
     <NavUser />
 
     <Outlet/>
-    <Footer/>
+    <FooterUser/>
 
     </>)
 }
