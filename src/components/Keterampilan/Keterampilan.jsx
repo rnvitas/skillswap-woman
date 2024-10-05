@@ -64,7 +64,7 @@ function Keterampilan() {
           </div>
 
           <div
-            className={`${styles["skills-content"]} mt-10 flex gap-5 mx-3 flex-wrap `}>
+            className={`${styles["skills-content"]} mt-10 flex gap-5 mx-3 flex-wrap justify-center items-center `}>
            
            {postskills == "" ?  <h1 className="font-bold text-[1.3rem] text-center text-black">Belum Ada Keterampilan yang Bisa Ditukar</h1> :
            postskills.map((item)=>(
