@@ -44,7 +44,7 @@ function FormPosting() {
       <div className="wrapper w-full bg-[#BA324F] rounded-b-[50px] flex flex-col gap-3 justify-center items-center">
         <div
           className={`${styles["skills-header-form"]} container flex flex-col gap-3`}>
-          <div className="py-3 flex gap-10 items-center">
+          <div className="py-3 flex gap-10 items-center"  onClick={() => navigate(-1)}>
             <Icon
               icon="fluent:ios-arrow-24-filled"
               width="48"

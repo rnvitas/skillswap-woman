@@ -36,7 +36,7 @@ function NavUser() {
 
             <div className={`${styles["button-join"]}`}>
               <button className="sm-btn-secondary" onClick={handleLogout}>
-                Profile
+                Logout
               </button>
             </div>
 

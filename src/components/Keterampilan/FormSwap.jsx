@@ -3,9 +3,10 @@ import styles from "../../assets/Skills.module.css";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { skillRequest } from "../../redux/skillsSlice";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function FormSwap() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id_post } = useParams();
 
@@ -37,7 +38,7 @@ function FormSwap() {
     <>
       <div className="wrapper w-full bg-[#BA324F] rounded-b-[50px] flex flex-col gap-3 justify-center items-center">
         <div className={`${styles["skills-header-form"]} container flex flex-col gap-3`}>
-          <div className="py-3 flex gap-10 items-center">
+          <div className="py-3 flex gap-10 items-center"  onClick={() => navigate(-1)}>
             <Icon icon="fluent:ios-arrow-24-filled" width="48" height="48" style={{ color: 'white' }} />
             <h6 className="text-white text-[1.2rem]">kembali</h6>
           </div>
